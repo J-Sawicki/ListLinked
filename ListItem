@@ -1,0 +1,33 @@
+
+public abstract class ListItem {
+
+    protected ListItem prev = null;
+    protected ListItem next = null;
+    protected Object value;
+
+    public ListItem( Object value) {
+        this.value = value;
+    }
+    
+    public Object getValue() {
+        return value;
+    }
+
+    public ListItem getPrev() {
+        return prev;
+    }
+
+    public ListItem getNext() {
+        return next;
+    }
+
+    public void setPrev(ListItem prev) {
+        this.prev = prev;
+    }
+
+    public void setNext(ListItem next) {
+        this.next = next;
+    }
+    
+    abstract int compareTo (ListItem value);
+}
