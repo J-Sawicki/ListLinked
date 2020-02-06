@@ -1,0 +1,94 @@
+
+public class ListLinked implements ItemList {
+    private ListItem head = null;
+
+    public ListLinked(ListItem head) {
+        this.head = head;
+    }
+
+    public ListLinked() {
+    }
+
+    @Override
+    public void removeItem (ListItem item){
+        ListItem checkedItem = head;
+        while (checkedItem != null){
+            if (checkedItem.compareTo(item) ==  0){
+                if (checkedItem == this.head){
+                    this.head.getNext().setPrev(checkedItem);
+                    checkedItem.setNext(this.head.getNext());
+                    this.head = checkedItem;
+                    return;
+                }
+                if (checkedItem.getNext() == null){
+                    checkedItem.getPrev().setNext(checkedItem);
+                    checkedItem.setNext(checkedItem.getPrev());
+                    return;
+                }
+                checkedItem.getPrev().setNext(checkedItem.getNext());
+                checkedItem.getNext().setPrev(checkedItem.getPrev());
+                return;
+            }
+            checkedItem = checkedItem.getNext();
+        }
+        System.out.println("No such item!");
+    }
+
+    @Override
+    public ListItem getRoot() {
+        return this.head;
+    }
+
+    @Override
+    public void addItem(ListItem item) {
+        if (head == null) {
+            this.head = item;
+            return;
+        }
+        ListItem checkItem = head;
+        boolean run = true;
+        while (run){
+            if (checkItem.compareTo(item) == 0){
+                return;
+            }
+            if (checkItem.compareTo(item)>0){
+                if (checkItem.getPrev() != null) {
+                    checkItem.getPrev().setNext(item);
+                    item.setPrev(checkItem.getPrev());
+                    checkItem.setPrev(item);
+                    item.setNext(checkItem);
+                    System.out.println("added!");
+                    return;
+                } else {
+                    item.setNext(this.head);
+                    this.head.setPrev(item);
+                    this.head = item;
+                    System.out.println("added!");
+                    return;
+                }
+
+            }
+            if (checkItem.getNext() != null) {
+                checkItem = checkItem.getNext();
+            } else {
+                run = false;
+            }
+        }
+        item.setPrev(checkItem);
+        checkItem.setNext(item);
+        System.out.println("added!");
+    }
+
+    @Override
+    public void traverse(ListItem head) {
+        if (head == null){
+            System.out.println("The list is empty");
+            return;
+        }
+        ListItem checkedItem = head;
+        while (checkedItem!= null){
+            System.out.println(checkedItem.getValue());
+            checkedItem = checkedItem.getNext();
+        }
+    }
+}
