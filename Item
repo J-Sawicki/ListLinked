@@ -1,0 +1,16 @@
+
+public class Item extends ListItem {
+
+    public Item(Object value) {
+        super(value);
+    }
+
+
+    @Override
+    int compareTo(ListItem value) {
+        if (value != null){
+            return ((String) super.getValue()).compareTo((String) value.getValue());
+        }
+        return -1;
+    }
+}
